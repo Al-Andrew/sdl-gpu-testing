@@ -1,0 +1,7 @@
+#include <aisdar/application.hpp>
+
+namespace aisdar {
+std::string_view build_version() noexcept {
+    return "@AISDAR_BUILD_VERSION@";
+}
+}

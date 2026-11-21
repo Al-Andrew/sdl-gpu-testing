@@ -1,0 +1,10 @@
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/SDL/CMakeLists.txt")
+    message(FATAL_ERROR "SDL is missing. Run: git submodule update --init --recursive")
+endif()
+
+set(SDL_SHARED OFF CACHE BOOL "Build shared SDL")
+set(SDL_STATIC ON CACHE BOOL "Build static SDL")
+set(SDL_TEST_LIBRARY OFF CACHE BOOL "Build SDL test library")
+set(SDL_TESTS OFF CACHE BOOL "Build SDL tests")
+set(SDL_EXAMPLES OFF CACHE BOOL "Build SDL examples")
+add_subdirectory(SDL EXCLUDE_FROM_ALL SYSTEM)

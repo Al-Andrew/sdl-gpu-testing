@@ -1,0 +1,33 @@
+# Use target information (also supplied by cross-compilation toolchains).
+string(TOLOWER "${CMAKE_SYSTEM_NAME}" AISDAR_PLATFORM)
+if(AISDAR_PLATFORM STREQUAL "darwin")
+    set(AISDAR_PLATFORM macos)
+endif()
+set(AISDAR_ARCHITECTURE "${CMAKE_SYSTEM_PROCESSOR}")
+if(CMAKE_OSX_ARCHITECTURES)
+    list(JOIN CMAKE_OSX_ARCHITECTURES "_" AISDAR_ARCHITECTURE)
+elseif(CMAKE_GENERATOR_PLATFORM)
+    set(AISDAR_ARCHITECTURE "${CMAKE_GENERATOR_PLATFORM}")
+elseif(MSVC_CXX_ARCHITECTURE_ID)
+    set(AISDAR_ARCHITECTURE "${MSVC_CXX_ARCHITECTURE_ID}")
+endif()
+string(TOLOWER "${AISDAR_ARCHITECTURE}" AISDAR_ARCHITECTURE)
+if(AISDAR_ARCHITECTURE MATCHES "^(amd64|x86_64|x64)$")
+    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        set(AISDAR_ARCHITECTURE x86)
+    else()
+        set(AISDAR_ARCHITECTURE x64)
+    endif()
+elseif(AISDAR_ARCHITECTURE MATCHES "^(i[3-6]86|win32|x86)$")
+    set(AISDAR_ARCHITECTURE x86)
+elseif(AISDAR_ARCHITECTURE MATCHES "^(aarch64|arm64)$")
+    set(AISDAR_ARCHITECTURE arm64)
+endif()
+if(NOT AISDAR_ARCHITECTURE)
+    message(FATAL_ERROR "Cannot determine target architecture; set CMAKE_SYSTEM_PROCESSOR in your toolchain.")
+endif()
+
+# A generator expression avoids an extra Debug/Release directory with
+# multi-configuration generators. Unspecified configurations use 'default'.
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
+    "${PROJECT_SOURCE_DIR}/bin/${AISDAR_PLATFORM}_${AISDAR_ARCHITECTURE}_$<IF:$<BOOL:$<CONFIG>>,$<LOWER_CASE:$<CONFIG>>,default>")
