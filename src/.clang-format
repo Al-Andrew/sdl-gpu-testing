@@ -1,0 +1,21 @@
+BasedOnStyle: InheritParentConfig
+MaxEmptyLinesToKeep: 3
+KeepEmptyLines:
+  AtStartOfBlock: true
+  AtEndOfFile: false
+  AtStartOfFile: true
+SeparateDefinitionBlocks: Leave
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortLambdasOnASingleLine: None
+InsertBraces: true
+IncludeBlocks: Preserve
+IncludeCategories:
+  - Regex: '^<(climits|cstdint|cstddef|cstdlib|cstring|limits|new|optional|utility|memory|type_traits|iostream|string_view|cstdio)>$'
+    Priority: 1
+  - Regex: '^<(SDL3/|windows\.h|unistd\.h|sys/|linux/)'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+AccessModifierOffset: -4
