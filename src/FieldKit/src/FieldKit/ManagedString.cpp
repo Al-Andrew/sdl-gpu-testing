@@ -2,7 +2,7 @@
 #include <limits>
 #include <utility>
 
-#include <ManagedString.hpp>
+#include <FieldKit/ManagedString.hpp>
 
 
 namespace FK {

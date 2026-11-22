@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <utility>
 
-#include <ManagedString.hpp>
-#include <NonNullPointer.hpp>
+#include <FieldKit/ManagedString.hpp>
+#include <FieldKit/NonNullPointer.hpp>
 
 
 namespace FK {
