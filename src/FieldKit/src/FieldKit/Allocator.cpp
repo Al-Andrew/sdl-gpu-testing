@@ -2,6 +2,7 @@
 #include <new>
 
 #include <FieldKit/Allocator.hpp>
+#include <FieldKit/Profiling.hpp>
 
 
 namespace FK {
@@ -43,10 +44,16 @@ ErrorCodeOr<void*> LibCppAllocator::allocate(std::size_t size, std::size_t align
         return ErrorCode::OUT_OF_MEMORY;
     }
 
+    FK_PROFILE_ALLOC(p, size);
+
     return p;
 }
 
 void LibCppAllocator::deallocate(void* p, std::size_t, std::size_t alignment) noexcept {
+    if (p) {
+        FK_PROFILE_FREE(p);
+    }
+
     if (alignment > __STDCPP_DEFAULT_NEW_ALIGNMENT__) {
         ::operator delete(p, std::align_val_t(alignment));
     } else {

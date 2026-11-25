@@ -1,4 +1,7 @@
 add_subdirectory(thirdparty)
 add_subdirectory(FieldKit)
 add_subdirectory(core)
-add_subdirectory(app)
+add_subdirectory(Platform)
+add_subdirectory(Renderer)
+add_subdirectory(Framework)
+add_subdirectory(App)

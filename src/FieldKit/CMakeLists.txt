@@ -11,3 +11,8 @@ target_compile_definitions(FieldKit PUBLIC
 )
 
 target_link_libraries(FieldKit PUBLIC spdlog::spdlog)
+
+if(AISDAR_ENABLE_TRACY)
+  target_link_libraries(FieldKit PUBLIC Tracy::TracyClient)
+  target_compile_definitions(FieldKit PUBLIC FK_ENABLE_TRACY=1)
+endif()

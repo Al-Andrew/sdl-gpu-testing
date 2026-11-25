@@ -6,4 +6,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(cmake/OutputDirectories.cmake)
 include(cmake/BuildVersion.cmake)
+include(CTest)
+option(AISDAR_ENABLE_TRACY "Enable Tracy CPU instrumentation" OFF)
 add_subdirectory(src)

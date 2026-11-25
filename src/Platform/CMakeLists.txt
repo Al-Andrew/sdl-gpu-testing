@@ -1,0 +1,5 @@
+add_library(Platform STATIC src/Platform/Window.cpp)
+add_library(Aisdar::Platform ALIAS Platform)
+target_compile_features(Platform PUBLIC cxx_std_23)
+target_include_directories(Platform PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_link_libraries(Platform PUBLIC FK::FieldKit PRIVATE SDL3::SDL3)

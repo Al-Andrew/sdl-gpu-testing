@@ -19,3 +19,17 @@ set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "Build spdlog tests")
 set(SPDLOG_BUILD_BENCH OFF CACHE BOOL "Build spdlog benchmarks")
 set(SPDLOG_INSTALL OFF CACHE BOOL "Install spdlog")
 add_subdirectory(spdlog EXCLUDE_FROM_ALL SYSTEM)
+
+if(AISDAR_ENABLE_TRACY)
+  include(FetchContent)
+  set(TRACY_ENABLE ON CACHE BOOL "Enable Tracy" FORCE)
+  set(TRACY_ON_DEMAND ON CACHE BOOL "Record while connected" FORCE)
+  set(TRACY_ONLY_LOCALHOST ON CACHE BOOL "Local profiler connection" FORCE)
+  set(TRACY_NO_SYSTEM_TRACING ON CACHE BOOL "Use explicit instrumentation" FORCE)
+  set(TRACY_NO_SAMPLING ON CACHE BOOL "Do not require perf sampling permissions" FORCE)
+  FetchContent_Declare(tracy
+    GIT_REPOSITORY https://github.com/wolfpld/tracy.git
+    GIT_TAG c556831ddc6fe26d2fce01c14c97205a9dad46d5
+  )
+  FetchContent_MakeAvailable(tracy)
+endif()
